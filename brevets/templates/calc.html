@@ -157,7 +157,9 @@
          // update those open & close inputs
          // open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
          // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
-         open_time_field.val(moment(times.open).format("ddd M/D H:mm"));
+         final_open_time = moment(times.open).add(30, 'seconds').startOf('minute');
+         console.log("final open time: " + final_open_time);
+         open_time_field.val(final_open_time.format("ddd M/D H:mm"));
          close_time_field.val(times.close);
        } // end of handler function
      );// End of getJSON
