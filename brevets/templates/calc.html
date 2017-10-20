@@ -135,7 +135,7 @@
     var beginDate = $("#begin_date").val();
     var beginTime = $("#begin_time").val();
     // data3 to send
-    var dateTime = moment(beginDate + ' ' + beginTime).format() 
+    var dateTime = moment(beginDate + ' ' + beginTime).toISOString(); 
     console.log("got brevet value: " + brevet_distance);
     console.log("got DateTime: " + dateTime); 
     $.getJSON(TIME_CALC_URL, { km: km, brevet_km: brevet_distance, date_time: dateTime }, 
