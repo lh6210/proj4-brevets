@@ -134,12 +134,20 @@
     var brevet_distance = $("select[name=distance]").val();
     var beginDate = $("#begin_date").val();
     var beginTime = $("#begin_time").val();
-    // data3 to send
-    var dateTime = moment(beginDate + ' ' + beginTime).toISOString(); 
-    console.log("got brevet value: " + brevet_distance);
+    console.log("got begin_date: " + beginDate);
+    console.log("got begin_time: " + beginTime);
+
+
+
+    // data3 to send  ---  something wrong here!!!
+    var dateTime = beginDate + ' ' + beginTime; 
+    // console.log("got brevet value: " + brevet_distance);
     console.log("got DateTime: " + dateTime); 
     $.getJSON(TIME_CALC_URL, { km: km, brevet_km: brevet_distance, date_time: dateTime }, 
       // response handler
+
+      // =======================================
+
       // after the server responds
       function(data) {
          // times is the multi-dictionary with {"open": open_time, "close": close_time}
@@ -149,7 +157,7 @@
          // update those open & close inputs
          // open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
          // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
-         open_time_field.val(times.open);
+         open_time_field.val(moment(times.open).format("ddd M/D H:mm"));
          close_time_field.val(times.close);
        } // end of handler function
      );// End of getJSON
