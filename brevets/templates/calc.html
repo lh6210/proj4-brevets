@@ -125,17 +125,20 @@
   // operate on the form named "control"
   function calc_times(control) {
     // locate the 'km', 'open', and 'close' inputs, and to update them later after the web browser receives server's response 
+    // data1 to send
     var km = control.find("input[name='km']").val();
     var open_time_field = control.find("input[name='open']");
     var close_time_field = control.find("input[name='close']");
-
-    var distance = $("#brevet_dist_km").val();
+    console.log("got km: " + km)
+    // data2 to send
+    var brevet_distance = $("select[name=distance]").val();
     var beginDate = $("#begin_date").val();
     var beginTime = $("#begin_time").val();
-    //var DateTime = moment(beginDate + ' ' + beginTime, 'DD/MM/YYYY HH:mm'); 
-    console.log("distance: " + distance);
-    //console.log("begin time: " + beginTime); 
-    $.getJSON(TIME_CALC_URL, { km: km, distance: distance, date_time: DateTime }, 
+    // data3 to send
+    var dateTime = moment(beginDate + ' ' + beginTime).format() 
+    console.log("got brevet value: " + brevet_distance);
+    console.log("got DateTime: " + dateTime); 
+    $.getJSON(TIME_CALC_URL, { km: km, brevet_km: brevet_distance, date_time: dateTime }, 
       // response handler
       // after the server responds
       function(data) {
@@ -144,9 +147,9 @@
          console.log("Got a response: " +  times);
          console.log("Response.open = " + times.open);
          // update those open & close inputs
-         open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
+         // open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
          // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
-         // open_time_field.val(times.open);
+         open_time_field.val(times.open);
          close_time_field.val(times.close);
        } // end of handler function
      );// End of getJSON
