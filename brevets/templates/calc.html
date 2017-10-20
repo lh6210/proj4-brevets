@@ -122,19 +122,32 @@
   // fill in open and close times in a human-readable format.
   // (If we want to also keep the ISO-formatted times, we'll need to
   // stash them in hidden fields.) 
+  // operate on the form named "control"
   function calc_times(control) {
+    // locate the 'km', 'open', and 'close' inputs, and to update them later after the web browser receives server's response 
     var km = control.find("input[name='km']").val();
     var open_time_field = control.find("input[name='open']");
     var close_time_field = control.find("input[name='close']");
-    
-    $.getJSON(TIME_CALC_URL, { km: km }, 
+
+    var distance = $("#brevet_dist_km").val();
+    var beginDate = $("#begin_date").val();
+    var beginTime = $("#begin_time").val();
+    //var DateTime = moment(beginDate + ' ' + beginTime, 'DD/MM/YYYY HH:mm'); 
+    console.log("distance: " + distance);
+    //console.log("begin time: " + beginTime); 
+    $.getJSON(TIME_CALC_URL, { km: km, distance: distance, date_time: DateTime }, 
       // response handler
+      // after the server responds
       function(data) {
+         // times is the multi-dictionary with {"open": open_time, "close": close_time}
          var times = data.result;
          console.log("Got a response: " +  times);
          console.log("Response.open = " + times.open);
+         // update those open & close inputs
          open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
-         close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
+         // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
+         // open_time_field.val(times.open);
+         close_time_field.val(times.close);
        } // end of handler function
      );// End of getJSON
     }
@@ -148,19 +161,25 @@
              var km = (1.609344 * miles).toFixed(1) ;
              console.log("Converted " + miles + " miles to " + km + " kilometers");
              var control_entry = $(this).parents(".control")
+             // locate the input[name='km']
              var target = control_entry.find("input[name='km']");
              target.val( km );
              // Then calculate times for this entry
+             // actually calc_times function will trigger the web browser to send get request to the server
              calc_times(control_entry);
           });
 
       $('input[name="km"]').change(
          function() {
              var km = parseFloat($(this).val());
+             // convert km into miles
              var miles = (0.621371 * km).toFixed(1) ;
              console.log("Converted " + km + " km to " + miles + " miles");
+             // $(this).parents is the form
              var control_entry = $(this).parents(".control")
+             // let the form finds the input named 'miles' and let us locate it as an object named target
              var target = control_entry.find("input[name='miles']");
+             // assign values to target
              target.val( miles );
              // Then calculate times for this entry
              calc_times(control_entry);

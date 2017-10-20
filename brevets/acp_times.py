@@ -16,6 +16,7 @@ import arrow
 #
 
 
+"""control_dist_km is from "km" input, brevet_dist_km is from the dropdown box"""
 def open_time(control_dist_km, brevet_dist_km, brevet_start_time):
     """
     Args:
