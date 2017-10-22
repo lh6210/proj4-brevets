@@ -58,7 +58,7 @@ def _calc_times():
     beginTime = request.args.get('date_time', type=str)
     logging.info("formatted beginTime={}".format(beginTime))
     app.logger.info("km={}".format(km))
-    app.logger.debug("request.args: {}".format(request.args))
+    app.logger.info("request.args: {}".format(request.args))
     # FIXME: These probably aren't the right open and close times
     # and brevets may be longer than 200km
     open_time = acp_times.open_time(km, brevet, beginTime)
