@@ -63,7 +63,7 @@ def _calc_times():
     # and brevets may be longer than 200km
     open_time = acp_times.open_time(km, brevet, beginTime)
     logging.info("calculated time: {}".format(open_time))
-    close_time = acp_times.close_time(km, brevet, arrow.now().isoformat)
+    close_time = acp_times.close_time(km, brevet, beginTime)
     result = {"open": open_time, "close": close_time}
     return flask.jsonify(result=result)
 
