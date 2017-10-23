@@ -157,14 +157,22 @@
          console.log("Got a response: " +  times);
          console.log("Response.open = " + times.open);
          console.log("Response.close = " + times.close);
-         // update those open & close inputs
-         // open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
-         // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
-         final_open_time = moment(times.open).add(30, 'seconds').startOf('minute');
-        final_close_time = moment(times.close).add(30, 'seconds').startOf('minute');
-         console.log("final open time: " + final_open_time);
-         open_time_field.val(final_open_time.format("ddd M/D H:mm"));
-         close_time_field.val(final_close_time.format("ddd M/D H:mm"));
+
+         if (times.isValid == false) {
+             control.find("input[name='km']").val("");
+             control.find("input[name='miles']").val("");
+             alert("The input should be between 0 and 110% of the brevet!")
+         }
+         else {
+             // update those open & close inputs
+             // open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
+             // close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
+             final_open_time = moment(times.open).add(30, 'seconds').startOf('minute');
+             final_close_time = moment(times.close).add(30, 'seconds').startOf('minute');
+             console.log("final open time: " + final_open_time);
+             open_time_field.val(final_open_time.format("ddd M/D H:mm"));
+             close_time_field.val(final_close_time.format("ddd M/D H:mm"));
+         }
        } // end of handler function
      );// End of getJSON
     }

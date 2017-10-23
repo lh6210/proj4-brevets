@@ -4,22 +4,13 @@ Reimplement the RUSA ACP controle time calculator with flask and ajax
 
 ## ACP controle times
 
-That's "controle" with an 'e', because it's French, although "control"
-is also accepted.  Controls are points where   
-a rider must obtain proof of passage, and control[e] times are the
-minimum and maximum times by which the rider must  
-arrive at the location.   
+student name: Hang Li
 
-The algorithm for calculating controle times is described at
-https://rusa.org/octime_alg.html .  Additional background information
-is in https://rusa.org/pages/rulesForRiders . The description is ambiguous,
-but the examples help.  Part of finishing this project is clarifying
-anything that is not clear about the requirements, and documenting it
-clearly.  
+ACP rules:
+1. error messages will pop up when users input numbers not in the range between 0 and 110% * brevet. This check function is implemented in flask_brevet.py.
+2. If a control distance is more than the brevet distance but less than 110% * brevet distance, the control distance would be regarded as the brevet distance
+3. The starting point will be closed in one hour by ACP rule.
 
-We are essentially replacing the calculator at
-https://rusa.org/octime_acp.html .  We can also use that calculator
-to clarify requirements and develop test data.  
 
 ## AJAX and Flask reimplementation
 
